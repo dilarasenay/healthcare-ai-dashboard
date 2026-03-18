@@ -444,3 +444,5 @@ def show(df):
         st.info("Özet istatistik için sayısal kolon seçmelisin.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+
+    
