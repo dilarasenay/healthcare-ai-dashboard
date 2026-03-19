@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 def show(df):
     # =========================================================
     # DEMO VALUES
@@ -11,7 +12,7 @@ def show(df):
     before_risk = 97
 
     # =========================================================
-    # STYLE
+    # PREMIUM STYLE
     # =========================================================
     st.markdown("""
     <style>
@@ -19,27 +20,27 @@ def show(df):
        PAGE
     ========================================================= */
     .block-container {
-        max-width: 1320px;
-        padding-top: 1.1rem !important;
-        padding-bottom: 2.4rem !important;
+        max-width: 1340px;
+        padding-top: 0.95rem !important;
+        padding-bottom: 2.6rem !important;
         padding-left: 1.8rem !important;
         padding-right: 1.8rem !important;
     }
 
     .stApp {
         background:
-            radial-gradient(circle at 10% 12%, rgba(123, 92, 255, 0.10), transparent 18%),
-            radial-gradient(circle at 86% 18%, rgba(34, 193, 195, 0.12), transparent 20%),
-            radial-gradient(circle at 48% 72%, rgba(59, 130, 246, 0.08), transparent 22%),
-            linear-gradient(180deg, #f7f9ff 0%, #eef4ff 52%, #f7fbff 100%);
+            radial-gradient(circle at 8% 12%, rgba(168, 85, 247, 0.08), transparent 18%),
+            radial-gradient(circle at 92% 16%, rgba(34, 211, 238, 0.10), transparent 18%),
+            radial-gradient(circle at 50% 75%, rgba(59, 130, 246, 0.06), transparent 22%),
+            linear-gradient(180deg, #fcfbff 0%, #f4f7ff 52%, #f8fbff 100%);
     }
 
     header[data-testid="stHeader"] {
-        background: rgba(0, 0, 0, 0);
+        background: rgba(0,0,0,0);
     }
 
     h1, h2, h3, h4 {
-        letter-spacing: -0.02em;
+        letter-spacing: -0.025em;
     }
 
     /* =========================================================
@@ -48,29 +49,47 @@ def show(df):
     .op-hero {
         position: relative;
         overflow: hidden;
-        border-radius: 28px;
-        padding: 24px 28px 20px 28px;
+        border-radius: 30px;
+        padding: 26px 28px 22px 28px;
         margin-bottom: 1.15rem;
         background:
-            radial-gradient(circle at top right, rgba(255,255,255,0.22), transparent 28%),
-            linear-gradient(135deg, #6d5df6 0%, #3b82f6 45%, #22c1c3 100%);
-        border: 1px solid rgba(255,255,255,0.16);
-        box-shadow: 0 20px 42px rgba(59,130,246,0.14);
+            radial-gradient(circle at top right, rgba(255,255,255,0.72), transparent 24%),
+            radial-gradient(circle at bottom left, rgba(255,255,255,0.48), transparent 20%),
+            linear-gradient(135deg, rgba(242,236,255,0.98) 0%, rgba(235,244,255,0.98) 48%, rgba(233,250,248,0.97) 100%);
+        border: 1px solid rgba(164, 151, 212, 0.14);
+        box-shadow:
+            0 24px 48px rgba(114, 121, 185, 0.08),
+            inset 0 1px 0 rgba(255,255,255,0.68);
+        backdrop-filter: blur(8px);
+    }
+
+    .op-hero::before {
+        content: "";
+        position: absolute;
+        left: -40px;
+        bottom: -50px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(168,85,247,0.10), rgba(59,130,246,0.04));
+        filter: blur(12px);
     }
 
     .op-hero::after {
         content: "";
         position: absolute;
-        right: -36px;
-        top: -44px;
+        right: -28px;
+        top: -34px;
         width: 180px;
         height: 180px;
         border-radius: 50%;
-        background: rgba(255,255,255,0.10);
-        filter: blur(8px);
+        background: linear-gradient(135deg, rgba(34,211,238,0.10), rgba(168,85,247,0.10));
+        filter: blur(12px);
     }
 
     .op-hero-top {
+        position: relative;
+        z-index: 2;
         display: flex;
         align-items: center;
         gap: 14px;
@@ -78,36 +97,45 @@ def show(df):
     }
 
     .op-hero-icon {
-        width: 54px;
-        height: 54px;
-        border-radius: 16px;
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.6rem;
-        color: white;
-        background: rgba(255,255,255,0.16);
-        border: 1px solid rgba(255,255,255,0.18);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
+        font-size: 1.45rem;
+        color: #5b4ce6;
+        background: linear-gradient(135deg, rgba(123,92,255,0.12), rgba(34,193,195,0.10));
+        border: 1px solid rgba(123,92,255,0.12);
+        box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.72),
+            0 10px 20px rgba(123,92,255,0.08);
     }
 
     .op-hero-title {
-        font-size: 2.05rem;
-        font-weight: 900;
-        color: white;
+        font-size: 2.22rem;
+        font-weight: 950;
         line-height: 1.05;
         margin: 0;
+        background: linear-gradient(90deg, #5b4ce6 0%, #7c3aed 45%, #0891b2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .op-hero-sub {
-        color: rgba(255,255,255,0.95);
-        font-size: 1rem;
-        line-height: 1.7;
-        max-width: 950px;
-        margin-bottom: 0.9rem;
+        position: relative;
+        z-index: 2;
+        color: #5e759a;
+        font-size: 1.02rem;
+        line-height: 1.78;
+        max-width: 980px;
+        margin-bottom: 1rem;
+        font-weight: 650;
     }
 
     .op-hero-badges {
+        position: relative;
+        z-index: 2;
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
@@ -116,44 +144,50 @@ def show(df):
     .op-badge {
         padding: 8px 14px;
         border-radius: 999px;
-        background: rgba(255,255,255,0.13);
-        border: 1px solid rgba(255,255,255,0.16);
-        color: white;
-        font-size: 0.90rem;
-        font-weight: 700;
+        background: rgba(255,255,255,0.74);
+        border: 1px solid rgba(164, 151, 212, 0.14);
+        color: #51688f;
+        font-size: 0.88rem;
+        font-weight: 800;
+        box-shadow: 0 8px 16px rgba(90, 104, 160, 0.05);
     }
 
     /* =========================================================
-       SECTION TITLES
+       TITLES
     ========================================================= */
     .section-title {
-        font-size: 1.9rem;
-        font-weight: 900;
+        font-size: 1.95rem;
+        font-weight: 950;
         color: #12357a;
-        margin-top: 0.15rem;
-        margin-bottom: 0.35rem;
+        margin-top: 0.1rem;
+        margin-bottom: 0.28rem;
+        letter-spacing: -0.03em;
     }
 
     .section-sub {
-        color: #54709b;
+        color: #60789d;
         font-size: 1rem;
-        line-height: 1.7;
-        margin-bottom: 0.8rem;
+        line-height: 1.72;
+        margin-bottom: 0.95rem;
+        font-weight: 600;
     }
 
     /* =========================================================
-       KPI / TOP METRIC CARDS
+       KPI METRICS
     ========================================================= */
     .metric-card {
         position: relative;
         overflow: hidden;
         border-radius: 24px;
         background:
-            linear-gradient(180deg, rgba(255,255,255,0.90), rgba(247,250,255,0.94));
-        border: 1px solid rgba(129, 148, 199, 0.14);
-        box-shadow: 0 16px 34px rgba(73, 98, 160, 0.08);
+            linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,250,255,0.96));
+        border: 1px solid rgba(129, 148, 199, 0.13);
+        box-shadow:
+            0 18px 34px rgba(73, 98, 160, 0.07),
+            inset 0 1px 0 rgba(255,255,255,0.76);
         padding: 18px 18px 16px 18px;
-        min-height: 148px;
+        min-height: 150px;
+        backdrop-filter: blur(6px);
     }
 
     .metric-card::before {
@@ -171,50 +205,75 @@ def show(df):
         position: absolute;
         right: -16px;
         bottom: -16px;
-        width: 88px;
-        height: 88px;
+        width: 90px;
+        height: 90px;
         border-radius: 50%;
         opacity: 0.18;
     }
 
-    .metric-a::after { background: linear-gradient(135deg, #7b5cff, #a78bfa); }
-    .metric-b::after { background: linear-gradient(135deg, #3b82f6, #93c5fd); }
-    .metric-c::after { background: linear-gradient(135deg, #22c1c3, #67e8f9); }
-    .metric-d::after { background: linear-gradient(135deg, #8b5cf6, #22d3ee); }
+    .metric-a::after { background: linear-gradient(135deg, #7b5cff, #c4b5fd); }
+    .metric-b::after { background: linear-gradient(135deg, #3b82f6, #bfdbfe); }
+    .metric-c::after { background: linear-gradient(135deg, #22c1c3, #a5f3fc); }
+    .metric-d::after { background: linear-gradient(135deg, #8b5cf6, #99f6e4); }
 
     .metric-label {
-        color: #5d7298;
-        font-size: 1rem;
-        font-weight: 800;
+        color: #62779a;
+        font-size: 0.98rem;
+        font-weight: 850;
         margin-bottom: 0.55rem;
     }
 
     .metric-value {
         color: #0f2f72;
-        font-size: 2.15rem;
-        font-weight: 900;
+        font-size: 2.18rem;
+        font-weight: 950;
         line-height: 1;
         margin-bottom: 0.55rem;
     }
 
     .metric-note {
-        color: #58719a;
-        font-size: 0.96rem;
-        line-height: 1.6;
-        font-weight: 600;
+        color: #61789c;
+        font-size: 0.95rem;
+        line-height: 1.62;
+        font-weight: 640;
     }
 
     /* =========================================================
-       PANEL WRAPPER
+       ACTION SELECT / RADIO
     ========================================================= */
-    .glass-panel {
-        background:
-            linear-gradient(180deg, rgba(255,255,255,0.80), rgba(245,249,255,0.88));
-        border: 1px solid rgba(129,148,199,0.14);
-        border-radius: 26px;
-        padding: 22px;
-        box-shadow: 0 18px 38px rgba(73, 98, 160, 0.08);
-        min-height: 100%;
+    div[data-baseweb="radio"] > div {
+        gap: 0.72rem;
+    }
+
+    div[data-baseweb="radio"] label {
+        background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,255,0.96));
+        border: 1px solid rgba(150, 160, 210, 0.14);
+        border-radius: 18px;
+        padding: 12px 14px;
+        box-shadow:
+            0 10px 22px rgba(70, 90, 150, 0.05),
+            inset 0 1px 0 rgba(255,255,255,0.82);
+        transition: all 0.24s ease;
+        min-height: 52px;
+    }
+
+    div[data-baseweb="radio"] label:hover {
+        transform: translateX(4px);
+        border: 1px solid rgba(123, 92, 255, 0.22);
+        box-shadow:
+            0 14px 24px rgba(123,92,255,0.09),
+            0 6px 14px rgba(34,193,195,0.05);
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(244,248,255,0.98));
+    }
+
+    div[data-baseweb="radio"] label span {
+        font-weight: 700 !important;
+        color: #45608f !important;
+    }
+
+    div[data-baseweb="radio"] input[type="radio"] {
+        accent-color: #7b5cff !important;
+        transform: scale(1.08);
     }
 
     /* =========================================================
@@ -222,17 +281,46 @@ def show(df):
     ========================================================= */
     .action-card {
         background:
-            linear-gradient(180deg, rgba(255,255,255,0.93), rgba(247,250,255,0.96));
-        border-radius: 22px;
+            linear-gradient(180deg, rgba(255,255,255,0.95), rgba(247,250,255,0.97));
+        border-radius: 24px;
         padding: 18px 18px 15px 18px;
-        box-shadow: 0 12px 26px rgba(76, 98, 150, 0.07);
-        border: 1px solid rgba(129,148,199,0.12);
+        box-shadow:
+            0 14px 28px rgba(76, 98, 150, 0.07),
+            inset 0 1px 0 rgba(255,255,255,0.72);
+        border: 1px solid rgba(129,148,199,0.11);
         border-left: 5px solid #7b5cff;
         margin-bottom: 14px;
+        backdrop-filter: blur(8px);
     }
 
     .action-card.alt-blue { border-left-color: #3b82f6; }
     .action-card.alt-cyan { border-left-color: #22c1c3; }
+
+    .action-card.primary {
+        background:
+            radial-gradient(circle at top right, rgba(255,255,255,0.62), transparent 24%),
+            linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,248,255,0.99));
+        box-shadow:
+            0 26px 46px rgba(123,92,255,0.14),
+            0 10px 24px rgba(34,193,195,0.06),
+            inset 0 1px 0 rgba(255,255,255,0.88);
+        transform: translateY(-2px);
+        border: 1px solid rgba(123,92,255,0.20);
+        position: relative;
+    }
+
+    .action-card.primary::after {
+        content: "";
+        position: absolute;
+        right: 18px;
+        top: 18px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(123,92,255,0.10), rgba(34,193,195,0.08));
+        filter: blur(4px);
+        pointer-events: none;
+    }
 
     .action-top {
         display: flex;
@@ -244,32 +332,33 @@ def show(df):
 
     .action-title {
         font-size: 1.12rem;
-        font-weight: 900;
+        font-weight: 950;
         color: #12357a;
     }
 
     .action-desc {
-        color: #5d7298;
+        color: #60789d;
         font-size: 1rem;
-        line-height: 1.72;
+        line-height: 1.75;
         margin-bottom: 0.5rem;
-        font-weight: 600;
+        font-weight: 650;
     }
 
     .action-note {
         font-size: 0.9rem;
-        color: #7087ad;
-        line-height: 1.6;
-        font-weight: 600;
+        color: #748ab0;
+        line-height: 1.62;
+        font-weight: 650;
     }
 
     .action-chip {
         border-radius: 999px;
         padding: 8px 14px;
-        font-size: 0.84rem;
-        font-weight: 900;
+        font-size: 0.83rem;
+        font-weight: 950;
         color: white;
         white-space: nowrap;
+        box-shadow: 0 8px 16px rgba(90,100,180,0.10);
     }
 
     .chip-purple { background: linear-gradient(135deg, #7b5cff, #8b5cf6); }
@@ -280,29 +369,32 @@ def show(df):
        AI COMMENT BOX
     ========================================================= */
     .ai-box {
-        border-radius: 24px;
+        border-radius: 26px;
         padding: 20px 20px 16px 20px;
         background:
-            radial-gradient(circle at top right, rgba(255,255,255,0.55), transparent 26%),
-            linear-gradient(135deg, rgba(123,92,255,0.12), rgba(59,130,246,0.10), rgba(34,193,195,0.12));
+            radial-gradient(circle at top right, rgba(255,255,255,0.62), transparent 26%),
+            linear-gradient(135deg, rgba(123,92,255,0.12), rgba(59,130,246,0.09), rgba(34,193,195,0.12));
         border: 1px solid rgba(123,92,255,0.14);
-        box-shadow: 0 16px 30px rgba(59,130,246,0.08);
-        margin-top: 0.6rem;
+        box-shadow:
+            0 18px 32px rgba(59,130,246,0.08),
+            0 8px 18px rgba(123,92,255,0.05),
+            inset 0 1px 0 rgba(255,255,255,0.78);
+        margin-top: 0.65rem;
         margin-bottom: 1rem;
     }
 
     .ai-box-title {
         font-size: 1.08rem;
-        font-weight: 900;
+        font-weight: 950;
         color: #12357a;
         margin-bottom: 0.7rem;
     }
 
     .ai-box-text {
-        font-size: 1.02rem;
-        line-height: 1.85;
-        color: #173d7c;
-        font-weight: 700;
+        font-size: 1.01rem;
+        line-height: 1.84;
+        color: #21467f;
+        font-weight: 720;
     }
 
     /* =========================================================
@@ -310,25 +402,27 @@ def show(df):
     ========================================================= */
     .mini-stat {
         background:
-            linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,250,255,0.96));
+            linear-gradient(180deg, rgba(255,255,255,0.94), rgba(247,250,255,0.98));
         border-radius: 22px;
         padding: 18px 18px 15px 18px;
-        min-height: 116px;
-        box-shadow: 0 14px 28px rgba(70,97,155,0.06);
-        border: 1px solid rgba(129,148,199,0.12);
+        min-height: 118px;
+        box-shadow:
+            0 14px 26px rgba(70,97,155,0.06),
+            inset 0 1px 0 rgba(255,255,255,0.78);
+        border: 1px solid rgba(129,148,199,0.11);
     }
 
     .mini-label {
-        color: #61739b;
+        color: #667aa0;
         font-size: 0.95rem;
         margin-bottom: 0.7rem;
-        font-weight: 800;
+        font-weight: 850;
     }
 
     .mini-value {
         color: #12357a;
         font-size: 2rem;
-        font-weight: 900;
+        font-weight: 950;
         line-height: 1;
     }
 
@@ -341,8 +435,8 @@ def show(df):
        RISK BAR
     ========================================================= */
     .risk-wrap {
-        margin-top: 0.75rem;
-        margin-bottom: 0.8rem;
+        margin-top: 0.78rem;
+        margin-bottom: 0.9rem;
     }
 
     .risk-track {
@@ -352,7 +446,9 @@ def show(df):
         background: linear-gradient(90deg, #22c1c3 0%, #3b82f6 45%, #8b5cf6 100%);
         position: relative;
         overflow: hidden;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+        box-shadow:
+            inset 0 2px 4px rgba(0,0,0,0.05),
+            0 8px 18px rgba(90,100,180,0.05);
     }
 
     .risk-mask {
@@ -360,15 +456,15 @@ def show(df):
         right: 0;
         top: 0;
         height: 16px;
-        background: rgba(255,255,255,0.72);
+        background: rgba(255,255,255,0.74);
         border-radius: 0 999px 999px 0;
     }
 
     .risk-value {
         font-size: 1.95rem;
-        font-weight: 900;
+        font-weight: 950;
         color: #ef4444;
-        margin-top: 0.65rem;
+        margin-top: 0.7rem;
     }
 
     /* =========================================================
@@ -378,23 +474,25 @@ def show(df):
         border-radius: 24px;
         padding: 22px 22px 18px 22px;
         background:
-            linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,250,255,0.95));
-        border: 1px solid rgba(129,148,199,0.12);
-        box-shadow: 0 15px 30px rgba(70,97,155,0.07);
+            linear-gradient(180deg, rgba(255,255,255,0.94), rgba(247,250,255,0.98));
+        border: 1px solid rgba(129,148,199,0.11);
+        box-shadow:
+            0 16px 28px rgba(70,97,155,0.06),
+            inset 0 1px 0 rgba(255,255,255,0.78);
     }
 
     .exec-title {
         font-size: 1.45rem;
-        font-weight: 900;
+        font-weight: 950;
         color: #12357a;
         margin-bottom: 0.85rem;
     }
 
     .exec-text {
-        font-size: 1.03rem;
-        line-height: 1.95;
-        color: #4e678f;
-        font-weight: 600;
+        font-size: 1.02rem;
+        line-height: 1.92;
+        color: #566f96;
+        font-weight: 650;
     }
 
     /* =========================================================
@@ -402,85 +500,159 @@ def show(df):
     ========================================================= */
     .insight-card {
         background:
-            linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,250,255,0.96));
+            linear-gradient(180deg, rgba(255,255,255,0.94), rgba(247,250,255,0.98));
         border-radius: 22px;
         padding: 20px;
         min-height: 205px;
-        box-shadow: 0 14px 28px rgba(60,90,150,0.06);
-        border: 1px solid rgba(129,148,199,0.12);
+        box-shadow:
+            0 14px 26px rgba(60,90,150,0.06),
+            inset 0 1px 0 rgba(255,255,255,0.76);
+        border: 1px solid rgba(129,148,199,0.11);
     }
 
     .insight-title {
         color: #12357a;
-        font-weight: 900;
+        font-weight: 950;
         font-size: 1.18rem;
         margin-bottom: 0.75rem;
     }
 
     .insight-text {
-        color: #58719a;
+        color: #60789d;
         font-size: 1rem;
         line-height: 1.82;
-        font-weight: 600;
+        font-weight: 650;
     }
 
     /* =========================================================
-       SUMMARY BAND
+       SUMMARY BANDS
     ========================================================= */
     .summary-band {
         margin-top: 0.9rem;
-        border-radius: 24px;
+        border-radius: 26px;
         padding: 22px 24px;
         background:
-            radial-gradient(circle at top left, rgba(255,255,255,0.20), transparent 22%),
+            radial-gradient(circle at top left, rgba(255,255,255,0.22), transparent 22%),
             linear-gradient(135deg, #7b5cff 0%, #3b82f6 48%, #22c1c3 100%);
         color: white;
-        box-shadow: 0 20px 40px rgba(91, 92, 240, 0.14);
+        box-shadow: 0 22px 42px rgba(91, 92, 240, 0.12);
         border: 1px solid rgba(255,255,255,0.14);
     }
 
     .summary-title {
         font-size: 1.18rem;
-        font-weight: 900;
+        font-weight: 950;
         margin-bottom: 0.55rem;
     }
 
     .summary-text {
-        font-size: 1.03rem;
-        line-height: 1.85;
-        color: rgba(255,255,255,0.97);
-        font-weight: 700;
+        font-size: 1.02rem;
+        line-height: 1.86;
+        color: rgba(255,255,255,0.98);
+        font-weight: 760;
     }
 
     /* =========================================================
-       STREAMLIT CONTROLS
+       SLIDERS
     ========================================================= */
-    div[data-baseweb="radio"] > div {
-        gap: 0.6rem;
-    }
-
-    div[data-baseweb="radio"] label {
-        background: rgba(255,255,255,0.76);
-        border: 1px solid rgba(129,148,199,0.12);
-        border-radius: 16px;
-        padding: 11px 13px;
-        box-shadow: 0 8px 18px rgba(60,90,150,0.04);
-    }
-
     div[data-baseweb="slider"] {
-        padding-top: 0.35rem;
-        padding-bottom: 0.7rem;
+        padding-top: 0.45rem;
+        padding-bottom: 0.9rem;
+    }
+
+    div[data-baseweb="slider"] > div {
+        background: rgba(255,255,255,0.40);
+        border-radius: 18px;
+        padding: 8px 10px 2px 10px;
+    }
+
+    div[data-baseweb="slider"] [role="slider"] {
+        box-shadow:
+            0 0 0 4px rgba(123,92,255,0.10),
+            0 6px 14px rgba(123,92,255,0.16) !important;
+        border: 2px solid white !important;
+    }
+
+    div[data-baseweb="slider"] [data-testid="stTickBar"] {
+        opacity: 0.55;
+    }
+
+    .stSlider label {
+        font-weight: 800 !important;
+        color: #4a628f !important;
+        letter-spacing: -0.01em;
+    }
+
+    .stSlider [role="slider"] {
+        background: linear-gradient(135deg, #7b5cff, #22c1c3) !important;
     }
 
     /* =========================================================
        RESPONSIVE
     ========================================================= */
     @media (max-width: 1100px) {
-        .op-hero-title { font-size: 1.75rem; }
+        .op-hero-title { font-size: 1.8rem; }
         .section-title { font-size: 1.6rem; }
     }
     </style>
     """, unsafe_allow_html=True)
+
+    # =========================================================
+    # ACTION CONFIG
+    # =========================================================
+    action_data = {
+        "Poliklinik kapasitesini artır": {
+            "card_class": "action-card",
+            "icon": "🎯",
+            "title": "Poliklinik kapasitesini artır",
+            "chip": "Öncelik 1",
+            "chip_class": "chip-purple",
+            "desc": "İlk müdahalenin başvuru yoğunluğunu karşılayan hatta yapılması, bekleme süresi üzerinde en hızlı iyileşmeyi üretir.",
+            "note": "💡 Yönetim notu: Kısa vadede en görünür operasyonel rahatlama bu alanda beklenir.",
+            "exec_title": "Öncelik 1: Poliklinik kapasitesini artır",
+            "exec_text": """İlk müdahalenin ana talep darboğazını hedeflemesi gerekir. Bu aksiyon, hasta akışında en hızlı görünür rahatlamayı üretir.<br><br>
+            1) Poliklinik kapasitesini artır<br>
+            2) Yatak dönüş sürecini hızlandır<br>
+            3) Ek vardiya ve görev dağılımını güncelle""",
+            "summary_focus": "poliklinik kapasitesi",
+        },
+        "Yatak dönüş sürecini hızlandır": {
+            "card_class": "action-card alt-blue",
+            "icon": "🛏️",
+            "title": "Yatak dönüş sürecini hızlandır",
+            "chip": "Öncelik 2",
+            "chip_class": "chip-blue",
+            "desc": "Yatak çevrim hızındaki iyileşme kapasite sıkışıklığını azaltır ve yoğun saatlerde akışın korunmasını destekler.",
+            "note": "💡 Yönetim notu: İlk aksiyonu destekleyen ikinci faz kapasite müdahalesi olarak değerlendirilmelidir.",
+            "exec_title": "Öncelik: Yatak dönüş sürecini hızlandır",
+            "exec_text": """Yatak akışının hızlandırılması, kapasite darboğazını doğrudan gevşetir ve servis döngüsünü daha verimli hale getirir.<br><br>
+            1) Yatak dönüş sürecini hızlandır<br>
+            2) Poliklinik kapasitesini güçlendir<br>
+            3) İş gücü planını destekleyici olarak güncelle""",
+            "summary_focus": "yatak dönüş hızı",
+        },
+        "Ek vardiya ve görev planı uygula": {
+            "card_class": "action-card alt-cyan",
+            "icon": "👩‍⚕️",
+            "title": "Ek vardiya ve görev planı uygula",
+            "chip": "Öncelik 3",
+            "chip_class": "chip-cyan",
+            "desc": "İş gücü dağılımının güçlendirilmesi hizmet kalitesini korur ve kapasite iyileştirmelerinin sürdürülebilirliğini artırır.",
+            "note": "💡 Yönetim notu: Kaynak ve vardiya dengesi, operasyonel istikrar için destekleyici bir kaldıraçtır.",
+            "exec_title": "Öncelik: Ek vardiya ve görev planı uygula",
+            "exec_text": """Personel dağılımını güçlendirmek, yoğunluk saatlerinde hizmet seviyesini korur ve sistemdeki kırılgan alanları azaltır.<br><br>
+            1) Ek vardiya ve görev planı uygula<br>
+            2) Poliklinik kapasitesini destekle<br>
+            3) Yatak çevrim süreçlerini paralel iyileştir""",
+            "summary_focus": "iş gücü planlaması",
+        }
+    }
+
+    ordered_actions = [
+        "Poliklinik kapasitesini artır",
+        "Yatak dönüş sürecini hızlandır",
+        "Ek vardiya ve görev planı uygula"
+    ]
 
     # =========================================================
     # HERO
@@ -488,11 +660,11 @@ def show(df):
     st.markdown("""
     <div class="op-hero">
         <div class="op-hero-top">
-            <div class="op-hero-icon">🧠</div>
-            <div class="op-hero-title">Operasyonel Öneri ve Önceliklendirme</div>
+            <div class="op-hero-icon">✦</div>
+            <div class="op-hero-title">Akıllı Operasyon Önerileri</div>
         </div>
         <div class="op-hero-sub">
-            Operasyonel baskı alanlarını önceliklendirir, müdahale senaryolarının beklenen etkisini görünür kılar
+            Operasyonel baskı alanlarını önceliklendirir, müdahale senaryolarının beklenen etkisini görünür hale getirir
             ve yönetim için uygulanabilir aksiyon sıralaması üretir.
         </div>
         <div class="op-hero-badges">
@@ -549,7 +721,7 @@ def show(df):
     # =========================================================
     # MAIN LAYOUT
     # =========================================================
-    left, right = st.columns([1.15, 1], gap="large")
+    left, right = st.columns([1.12, 1], gap="large")
 
     with left:
         st.markdown("<div class='section-title'>🎯 Öncelikli Aksiyonlar</div>", unsafe_allow_html=True)
@@ -557,70 +729,53 @@ def show(df):
 
         selected_action = st.radio(
             "Aksiyon seç:",
-            [
-                "Poliklinik kapasitesini artır",
-                "Yatak dönüş sürecini hızlandır",
-                "Ek vardiya ve görev planı uygula"
-            ]
+            ordered_actions
         )
 
-        st.markdown("""
-        <div class="action-card">
+        current = action_data[selected_action]
+
+        st.markdown(f"""
+        <div class="{current['card_class']} primary">
             <div class="action-top">
-                <div class="action-title">🎯 Poliklinik kapasitesini artır</div>
-                <div class="action-chip chip-purple">Öncelik 1</div>
+                <div class="action-title">{current['icon']} {current['title']}</div>
+                <div class="action-chip {current['chip_class']}">{current['chip']}</div>
             </div>
             <div class="action-desc">
-                İlk müdahalenin başvuru yoğunluğunu karşılayan hatta yapılması, bekleme süresi üzerinde en hızlı iyileşmeyi üretir.
+                {current['desc']}
             </div>
             <div class="action-note">
-                💡 Yönetim notu: Kısa vadede en görünür operasyonel rahatlama bu alanda beklenir.
+                {current['note']}
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("""
-        <div class="action-card alt-blue">
-            <div class="action-top">
-                <div class="action-title">🛏️ Yatak dönüş sürecini hızlandır</div>
-                <div class="action-chip chip-blue">Öncelik 2</div>
+        for action_name in ordered_actions:
+            if action_name == selected_action:
+                continue
+            item = action_data[action_name]
+            st.markdown(f"""
+            <div class="{item['card_class']}">
+                <div class="action-top">
+                    <div class="action-title">{item['icon']} {item['title']}</div>
+                    <div class="action-chip {item['chip_class']}">{item['chip']}</div>
+                </div>
+                <div class="action-desc">
+                    {item['desc']}
+                </div>
+                <div class="action-note">
+                    {item['note']}
+                </div>
             </div>
-            <div class="action-desc">
-                Yatak çevrim hızındaki iyileşme kapasite sıkışıklığını azaltır ve yoğun saatlerde akışın korunmasını destekler.
-            </div>
-            <div class="action-note">
-                💡 Yönetim notu: İlk aksiyonu destekleyen ikinci faz kapasite müdahalesi olarak değerlendirilmelidir.
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("""
-        <div class="action-card alt-cyan">
-            <div class="action-top">
-                <div class="action-title">👩‍⚕️ Ek vardiya ve görev planı uygula</div>
-                <div class="action-chip chip-cyan">Öncelik 3</div>
-            </div>
-            <div class="action-desc">
-                İş gücü dağılımının güçlendirilmesi hizmet kalitesini korur ve kapasite iyileştirmelerinin sürdürülebilirliğini artırır.
-            </div>
-            <div class="action-note">
-                💡 Yönetim notu: Kaynak ve vardiya dengesi, operasyonel istikrar için destekleyici bir kaldıraçtır.
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
         st.markdown("<div style='height:0.35rem;'></div>", unsafe_allow_html=True)
 
         st.markdown("<div class='section-title'>📌 Yöneticiye Net Yönlendirme</div>", unsafe_allow_html=True)
-        st.markdown("""
+        st.markdown(f"""
         <div class="exec-card">
-            <div class="exec-title">Öncelik 1: Poliklinik kapasitesini artır</div>
+            <div class="exec-title">{current['exec_title']}</div>
             <div class="exec-text">
-                İlk müdahalenin ana talep darboğazını hedeflemesi gerekir. Ardından yatak dönüş süreci ve iş gücü planı
-                destekleyici ikinci faz olarak devreye alınmalıdır.<br><br>
-                1) Poliklinik kapasitesini artır<br>
-                2) Yatak dönüş sürecini hızlandır<br>
-                3) Ek vardiya ve görev dağılımını güncelle
+                {current['exec_text']}
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -643,6 +798,7 @@ def show(df):
         <div class="ai-box">
             <div class="ai-box-title">📊 Karar Yorumu</div>
             <div class="ai-box-text">
+                Seçili ana odak <b>{current['summary_focus']}</b> olarak değerlendirilmektedir.
                 Poliklinik kapasitesindeki <b>%{pol}</b> artış, bekleme süresinde yaklaşık <b>%{abs(wait_effect)}</b>
                 iyileşme potansiyeli üretir. Yatak dönüş hızındaki <b>%{bed}</b> artış kapasite baskısını dengeler.
                 İş gücü optimizasyonunun <b>%{work}</b> düzeyine çıkması, operasyonel akışın sürekliliğini destekler.
@@ -682,7 +838,7 @@ def show(df):
             </div>
             """, unsafe_allow_html=True)
 
-        st.markdown("<div class='section-sub' style='margin-top:0.9rem; margin-bottom:0.2rem; font-weight:800; color:#12357a;'>🚨 Risk seviyesi</div>", unsafe_allow_html=True)
+        st.markdown("<div class='section-sub' style='margin-top:0.9rem; margin-bottom:0.2rem; font-weight:850; color:#12357a;'>🚨 Risk seviyesi</div>", unsafe_allow_html=True)
         st.markdown(f"""
         <div class="risk-wrap">
             <div class="risk-track">
@@ -696,14 +852,14 @@ def show(df):
         <div class="summary-band" style="margin-top:0.7rem;">
             <div class="summary-title">🧠 Yönetim Özeti</div>
             <div class="summary-text">
-                İlk odak alanı <b>poliklinik kapasitesi</b> olmalıdır. En yüksek ilk etki bu başlıkta oluşur.
-                İkinci aşamada yatak dönüşü ve iş gücü planı devreye alındığında risk seviyesi
+                Seçili öncelik <b>{current['title']}</b> olarak öne çıkmaktadır.
+                Bu odak alanı üzerinden müdahale başlatıldığında risk seviyesi
                 <b>{before_risk}/100</b> düzeyinden yaklaşık <b>{after_risk}/100</b> seviyesine çekilebilir.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 0.9rem;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 0.95rem;'></div>", unsafe_allow_html=True)
 
     # =========================================================
     # INSIGHT BOARD
@@ -727,19 +883,19 @@ def show(df):
         <div class="insight-card">
             <div class="insight-title">Beklenen En Güçlü Etki</div>
             <div class="insight-text">
-                Simülasyona göre ilk müdahale sonrası bekleme süresinde yaklaşık <b>%{abs(wait_effect)}</b>
-                iyileşme ve toplam risk skorunda anlamlı bir geri çekilme beklenmektedir.
+                Simülasyona göre seçili aksiyon <b>{current['title']}</b> için bekleme süresinde yaklaşık
+                <b>%{abs(wait_effect)}</b> iyileşme ve toplam risk skorunda anlamlı bir geri çekilme beklenmektedir.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
     with c:
-        st.markdown("""
+        st.markdown(f"""
         <div class="insight-card">
             <div class="insight-title">Karar Notu</div>
             <div class="insight-text">
-                Yönetimin ilk odak noktası poliklinik kapasitesini artırmak olmalıdır.
-                Destekleyici ikinci fazda kapasite akışı ve iş gücü dengesi birlikte ele alınmalıdır.
+                Yönetimin odak noktası şu anda <b>{current['summary_focus']}</b> ekseninde şekillenmelidir.
+                Destekleyici ikinci faz müdahaleler ile birlikte daha dengeli bir operasyon akışı kurulabilir.
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -751,7 +907,7 @@ def show(df):
     <div class="summary-band">
         <div class="summary-title">📄 Tek Cümlelik Yönetici Sonucu</div>
         <div class="summary-text">
-            Mevcut tablo, öncelikli müdahale gerektirmektedir; en doğru ilk adım <b>poliklinik kapasitesini artırmak</b> olup,
+            Mevcut tablo, öncelikli müdahale gerektirmektedir; seçili ilk adım <b>{current['title']}</b> olup,
             simülasyon sonucuna göre toplam risk seviyesi <b>{before_risk}/100</b> düzeyinden yaklaşık
             <b>{after_risk}/100</b> seviyesine çekilebilir.
         </div>
